@@ -1,0 +1,6 @@
+/ustawy/*
+!/ustawy/.gitkeep
+*.gz
+/venv/
+/.vscode/
+__pycache__/
