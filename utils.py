@@ -13,7 +13,8 @@ def process(*processors: Processor) -> pd.DataFrame:
     file_names = os.listdir(FILES_PATH)
     result = []
     for name in file_names:
-        result.append([name, *_process_document(_normalize_document(_read_document(name, FILES_PATH)), *processors)])
+        if name.endswith(".txt"):
+            result.append([name, *_process_document(_normalize_document(_read_document(name, FILES_PATH)), *processors)])
     return pd.DataFrame(result)
 
 
