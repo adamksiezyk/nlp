@@ -9,6 +9,15 @@ Processor = Callable[[str], Any]
 FILES_PATH = "ustawy"
 
 
+def read_documents() -> dict[str, str]:
+    file_names = os.listdir(FILES_PATH)
+    return {
+        name: _read_document(name, FILES_PATH)
+        for name in file_names
+        if name.endswith(".txt")
+    }
+
+
 def process(*processors: Processor) -> pd.DataFrame:
     file_names = os.listdir(FILES_PATH)
     result = []
