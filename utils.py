@@ -1,3 +1,4 @@
+import functools
 import pandas as pd
 import os
 import re
@@ -18,6 +19,15 @@ def read_documents() -> dict[str, str]:
     }
 
 
+def read_normalized_documents() -> dict[str, str]:
+    file_names = os.listdir(FILES_PATH)
+    return {
+        name: _normalize_document(_read_document(name, FILES_PATH))
+        for name in file_names
+        if name.endswith(".txt")
+    }
+
+
 def process(*processors: Processor) -> pd.DataFrame:
     file_names = os.listdir(FILES_PATH)
     result = []
@@ -33,7 +43,7 @@ def _read_document(name: str, path: str) -> str:
 
 
 def _normalize_document(document: str) -> str:
-    return re.sub(r"\s+", " ", document)
+    return re.sub(r"\s+", " ", document).lower()
 
 
 def _process_document(document: str, *processors: Processor) -> list:
