@@ -1,4 +1,3 @@
-import functools
 import pandas as pd
 import os
 import re
@@ -10,10 +9,10 @@ Processor = Callable[[str], Any]
 FILES_PATH = "ustawy"
 
 
-def read_documents() -> dict[str, str]:
-    file_names = os.listdir(FILES_PATH)
+def read_documents(path: str = FILES_PATH) -> dict[str, str]:
+    file_names = os.listdir(path)
     return {
-        name: _read_document(name, FILES_PATH)
+        name: _read_document(name, path)
         for name in file_names
         if name.endswith(".txt")
     }
